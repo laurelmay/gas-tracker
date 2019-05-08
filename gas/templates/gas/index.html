@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-4">Track your gas</h1>
+        <p class="lead">
+            Keep track of how often you purchase gas
+        </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Get started</a>
+        </p>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Gas</h2>
+            <p>
+                Keep track of individual purchases, as well as average MPG and
+                total cost.
+            </p>
+            <p>
+                <a class="btn btn-secondary" role="button" href="{% url 'add-purchase' %}">Add Purchase</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Maintenace/Service</h2>
+            <p>
+                Track work done on your vehicles over time, including when the
+                work was done, what work was done, and how much it cost.
+            </p>
+            <p>
+                <a class="btn btn-secondary" role="button" href="{% url 'add-maintenance' %}">Add Maintenance</a>
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Third column</h2>
+            <p>
+                This is a third column that I'll get around to replacing at
+                some point.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

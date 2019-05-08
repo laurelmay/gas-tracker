@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}{{object.year }} {{ object.make }} {{ object.model }}{% endblock %}
+
+{% block content %}
+<div class="container main-container">
+<h2>{{object.year }} {{ object.make }} {{ object.model }}</h2>
+
+<p>VIN: {{ object.vin }}</p>
+<p>Operating cost: ${{ object.operating_cost|floatformat:2 }}</p>
+<h3>Gas Purchases</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Odometer</th>
+            <th scope="col">Date Time</th>
+            <th scope="col">Gallons</th>
+            <th scope="col">Cost/Gallon</th>
+            <th scope="col">Total Cost</th>
+            <th scope="col">Average MPG</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fill_up in object.gaspurchase_set.all|slice:":5" %}
+        <tr>
+            <td scope="row">{{ fill_up.odometer_reading }}</td>
+            <td>{{ fill_up.datetime }}</td>
+            <td>{{ fill_up.gallons|floatformat:3 }}</td>
+            <td>${{ fill_up.cost_per_gallon|floatformat:2 }}</td>
+            <td>${{ fill_up.total_cost|floatformat:2 }}</td>
+            <td>{{ fill_up.average_mpg|floatformat:3 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<p>
+    <a class="btn btn-primary" href="{% url 'add-purchase' %}" role="button">Add Purchase</a>
+    <a class="btn btn-secondary" href="{% url 'car-gas-purchases' object.uuid %}" role="button">All Purchases</a>
+</p>
+
+<h3>Maintenances</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Odometer</th>
+            <th scope="col">Date Time</th>
+            <th scope="col">Description</th>
+            <th scope="col">Cost</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for maint in object.maintenance_set.all|slice:":5" %}
+        <tr>
+            <td scope="row">{{ maint.odometer_reading }}</td>
+            <td>{{ maint.datetime }}</td>
+            <td>{{ maint.description }}</td>
+            <td>${{ maint.cost|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- TODO: Button to see more purchases -->
+<p><a class="btn btn-primary" href="{% url 'add-maintenance' %}" role="button">Add Maintenance</a></p>
+</div>
+{% endblock %}

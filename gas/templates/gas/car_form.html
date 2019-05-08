@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load bootstrap %}
+
+{% block title %}Add Car{% endblock %}
+
+{% block content %}
+<div class="container main-container">
+<h2>Add Car</h2>
+<form action="{% url 'add-car' %}" method="post">
+    {% csrf_token %}
+    {{ form|bootstrap }}
+    <input class="btn btn-primary" type="submit" value="Add">
+</form>
+</div>
+{% endblock %}
