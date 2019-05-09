@@ -4,9 +4,16 @@
 {% block title %}{{car.year }} {{ car.make }} {{ car.model }} Gas Purchases{% endblock %}
 
 {% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="container breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'cars' %}">My Cars</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'car-detail' car.uuid %}">Car Detail</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Gas Purchases</li>
+    </ol>
+</nav>
 <div class="container main-container">
 <h2>{{car.year }} {{ car.make }} {{ car.model }} Gas Purchases</h2>
-<p><a class="btn btn-primary" href="{% url 'add-purchase' %}" role="button">Add Purchase</a></p>
+<p><a class="btn btn-primary" href="{% url 'add-purchase' %}?uuid={{ car.uuid }}" role="button">Add Purchase</a></p>
 <table class="table table-striped">
     <thead>
         <tr>
