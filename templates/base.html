@@ -1,4 +1,6 @@
 {% load static %}
+{% load gas_extras %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,16 +29,27 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+                    <li class="nav-item {% nav_active 'index' %}">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'cars' %}">My Cars</a></li>
+                    <li class="nav-item {% nav_active 'cars' %}">
+                        <a class="nav-link" href="{% url 'cars' %}">My Cars</a>
+                    </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav navbar-right">
+                    {# It's rather senseless to add the active check to   #}
+                    {# login and logout because they won't be seen in the #}
+                    {# navbar after being clicked.                        #}
                     {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Log out</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                    </li>
                     {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    </li>
                     {% endif %}
                 </ul>
             </div>
