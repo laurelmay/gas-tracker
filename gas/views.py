@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponse
 from django.shortcuts import (
     redirect,
@@ -98,6 +100,18 @@ class NewPurchaseView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('car-detail', args=(self.object.vehicle.uuid,))
 
+    def get_initial(self):
+        values = {}
+        try:
+            car = Car.objects.get(uuid=self.request.GET.get("uuid"))
+            values['vehicle'] = car
+        except Car.DoesNotExist:
+            pass
+
+        values['datetime'] = datetime.datetime.now()
+
+        return values
+
 
 class NewCarView(LoginRequiredMixin, CreateView):
     model = Car
@@ -135,3 +149,15 @@ class NewMaintenanceView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('car-detail', args=(self.object.vehicle.uuid,))
+
+    def get_initial(self):
+        values = {}
+        try:
+            car = Car.objects.get(uuid=self.request.GET.get("uuid"))
+            values['vehicle'] = car
+        except Car.DoesNotExist:
+            pass
+
+        values['datetime'] = datetime.datetime.now()
+
+        return values

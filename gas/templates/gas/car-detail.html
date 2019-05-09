@@ -36,7 +36,7 @@
     </tbody>
 </table>
 <p>
-    <a class="btn btn-primary" href="{% url 'add-purchase' %}" role="button">Add Purchase</a>
+    <a class="btn btn-primary" href="{% url 'add-purchase' %}?uuid={{ object.uuid }}" role="button">Add Purchase</a>
     <a class="btn btn-secondary" href="{% url 'car-gas-purchases' object.uuid %}" role="button">All Purchases</a>
 </p>
 
@@ -63,6 +63,8 @@
     </tbody>
 </table>
 <!-- TODO: Button to see more purchases -->
-<p><a class="btn btn-primary" href="{% url 'add-maintenance' %}" role="button">Add Maintenance</a></p>
+<p>
+    <a class="btn btn-primary" href="{% url 'add-maintenance' %}?uuid={{ object.uuid }}" role="button">Add Maintenance</a>
+</p>
 </div>
 {% endblock %}
