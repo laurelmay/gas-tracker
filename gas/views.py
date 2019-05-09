@@ -7,6 +7,9 @@ from django.shortcuts import (
     reverse,
     get_object_or_404,
 )
+from django.core.exceptions import (
+    ValidationError
+)
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     UserPassesTestMixin,
@@ -105,7 +108,7 @@ class NewPurchaseView(LoginRequiredMixin, CreateView):
         try:
             car = Car.objects.get(uuid=self.request.GET.get("uuid"))
             values['vehicle'] = car
-        except Car.DoesNotExist:
+        except (Car.DoesNotExist, ValidationError):
             pass
 
         values['datetime'] = datetime.datetime.now()
@@ -155,7 +158,7 @@ class NewMaintenanceView(LoginRequiredMixin, CreateView):
         try:
             car = Car.objects.get(uuid=self.request.GET.get("uuid"))
             values['vehicle'] = car
-        except Car.DoesNotExist:
+        except (Car.DoesNotExist, ValidationError):
             pass
 
         values['datetime'] = datetime.datetime.now()
