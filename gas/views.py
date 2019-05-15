@@ -20,6 +20,9 @@ from django.views.generic.edit import (
     FormView,
 )
 from django.views.generic.list import ListView
+from django.utils import (
+    timezone,
+)
 
 from .models import (
     Car,
@@ -111,7 +114,7 @@ class NewPurchaseView(LoginRequiredMixin, CreateView):
         except (Car.DoesNotExist, ValidationError):
             pass
 
-        values['datetime'] = datetime.datetime.now()
+        values['datetime'] = timezone.now()
 
         return values
 
@@ -161,6 +164,6 @@ class NewMaintenanceView(LoginRequiredMixin, CreateView):
         except (Car.DoesNotExist, ValidationError):
             pass
 
-        values['datetime'] = datetime.datetime.now()
+        values['datetime'] = timezone.now()
 
         return values
