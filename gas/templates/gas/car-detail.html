@@ -69,9 +69,9 @@
         {% endfor %}
     </tbody>
 </table>
-<!-- TODO: Button to see more purchases -->
 <p>
     <a class="btn btn-primary" href="{% url 'add-maintenance' %}?uuid={{ object.uuid }}" role="button">Add Maintenance</a>
+    <a class="btn btn-secondary" href="{% url 'car-maintenances' object.uuid %}" role="button">All Maintenances</a>
 </p>
 </div>
 {% endblock %}

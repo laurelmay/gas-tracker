@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}{{car.year }} {{ car.make }} {{ car.model }} Maintenances{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="container breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'cars' %}">My Cars</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'car-detail' car.uuid %}">Car Detail</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Maintenances</li>
+    </ol>
+</nav>
+<div class="container main-container">
+<h2>{{car.year }} {{ car.make }} {{ car.model }} Maintenances</h2>
+<p><a class="btn btn-primary" href="{% url 'add-maintenance' %}?uuid={{ car.uuid }}" role="button">Add Maintenance</a></p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Odometer</th>
+            <th scope="col">Date Time</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for maintenance in object_list %}
+        <tr>
+            <td scope="row">{{ maintenance.odometer_reading }}</td>
+            <td>{{ maintenance.datetime }}</td>
+            <td>${{ maintenance.cost|floatformat:2 }}</td>
+            <td>{{ maintenance.description }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if is_paginated %}
+<ul class="pagination">
+    {# Previous page #}
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous<a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+        <span class="page-link">Previous</span>
+    </li>
+    {% endif %}
+
+    {# All pages #}
+    {% for i in paginator.page_range %}
+    {% if page_obj.number == i %}
+    <li class="page-item active">
+        <span class="page-link">
+            {{ i }}
+            <span class="sr-only">(current)</span>
+        </span>
+    </li>
+    {% else %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+
+    {# Next Page #}
+    {% if page_obj.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+        <span class="page-link">Next</a>
+    </li>
+    {% endif %}
+</ul>
+{% endif %}
+
+{% endblock %}

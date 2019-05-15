@@ -69,6 +69,26 @@ class GasPurchaseListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
         return car.owner == self.request.user
 
 
+class MaintenanceListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Maintenance
+    template_name = 'gas/car_maintenance_list.html'
+
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['car'] = Car.objects.get(uuid=self.kwargs.get("uuid"))
+        return context
+
+    def get_queryset(self):
+        car = Car.objects.get(uuid=self.kwargs.get("uuid"))
+        return Maintenance.objects.filter(vehicle=car)
+
+    def test_func(self):
+        car = Car.objects.get(uuid=self.kwargs.get("uuid"))
+        return car.owner == self.request.user
+
+
 class CarDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Car
     template_name = 'gas/car-detail.html'
