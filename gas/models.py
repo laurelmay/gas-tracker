@@ -67,20 +67,20 @@ class GasPurchase(models.Model):
 
     @property
     def average_mpg(self):
-        # Get all the gas purchases with an odometer reading less than the
-        # reading at this purchase, allowing for finding the previous reading
-        # (the one that is immediately smaller than the current purchase).
+        # Get all the gas purchases with an odometer reading more than the
+        # reading at this purchase, allowing for finding the next reading
+        # (the one that is immediately larger than the current purchase).
         qs = GasPurchase.objects.filter(
             vehicle=self.vehicle,
-            odometer_reading__lt=self.odometer_reading,
-        ).order_by('-odometer_reading')
-        # An empty query set suggests that there are no smaller reading (such
-        # as the first fill up)
+            odometer_reading__gt=self.odometer_reading,
+        ).order_by('odometer_reading')
+        # An empty query set suggests that there are no larger readings (such
+        # as the most recent fill up)
         if not qs:
             return None
 
-        prev = qs[0]
-        return (self.odometer_reading - prev.odometer_reading) / self.gallons
+        next = qs[0]
+        return (next.odometer_reading - self.odometer_reading) / next.gallons
 
     class Meta:
         ordering = ['-odometer_reading']
