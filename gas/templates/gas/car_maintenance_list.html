@@ -18,7 +18,7 @@
     <thead>
         <tr>
             <th scope="col">Odometer</th>
-            <th scope="col">Date Time</th>
+            <th scope="col">Date</th>
             <th scope="col">Cost</th>
             <th scope="col">Description</th>
         </tr>
@@ -27,7 +27,7 @@
         {% for maintenance in object_list %}
         <tr>
             <td scope="row">{{ maintenance.odometer_reading }}</td>
-            <td>{{ maintenance.datetime }}</td>
+            <td>{{ maintenance.datetime|date }}</td>
             <td>${{ maintenance.cost|floatformat:2 }}</td>
             <td>{{ maintenance.description }}</td>
         </tr>

@@ -23,7 +23,7 @@
     <thead>
         <tr>
             <th scope="col">Odometer</th>
-            <th scope="col">Date Time</th>
+            <th scope="col">Date & Time</th>
             <th scope="col">Gallons</th>
             <th scope="col">Cost/Gallon</th>
             <th scope="col">Total Cost</th>
@@ -54,7 +54,7 @@
     <thead>
         <tr>
             <th scope="col">Odometer</th>
-            <th scope="col">Date Time</th>
+            <th scope="col">Date</th>
             <th scope="col">Description</th>
             <th scope="col">Cost</th>
         </tr>
@@ -63,7 +63,7 @@
         {% for maint in object.maintenance_set.all|slice:":5" %}
         <tr>
             <td scope="row">{{ maint.odometer_reading }}</td>
-            <td>{{ maint.datetime }}</td>
+            <td>{{ maint.datetime|date }}</td>
             <td>{{ maint.description }}</td>
             <td>${{ maint.cost|floatformat:2 }}</td>
         </tr>
