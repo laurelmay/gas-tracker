@@ -22,7 +22,7 @@
             <th scope="col">Gallons</th>
             <th scope="col">Cost/Gallon</th>
             <th scope="col">Total Cost</th>
-            <th scope="col">Average MPG</th>
+            <th scope="col">Tank MPG</th>
         </tr>
     </thead>
     <tbody>
@@ -33,7 +33,7 @@
             <td>{{ fill_up.gallons|floatformat:3 }}</td>
             <td>${{ fill_up.cost_per_gallon|floatformat:2 }}</td>
             <td>${{ fill_up.total_cost|floatformat:2 }}</td>
-            <td>{{ fill_up.average_mpg|floatformat:3 }}</td>
+            <td>{{ fill_up.tank_mpg|floatformat:3 }}</td>
         </tr>
         {% endfor %}
     </tbody>

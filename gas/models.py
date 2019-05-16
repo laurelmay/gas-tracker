@@ -39,6 +39,22 @@ class Car(models.Model):
         maint_total = sum([maint.cost for maint in maintenances])
         return gas_total + maint_total
 
+    @property
+    def average_mpg(self):
+        gas_purchases = self.gaspurchase_set.all()
+        total_gallons = sum([purchase.gallons for purchase in gas_purchases])
+        if gas_purchases:
+            last_odom = gas_purchases[0].odometer_reading
+            last_gallons = gas_purchases[0].gallons
+            first_odom = gas_purchases.last().odometer_reading
+
+            if total_gallons - last_gallons == 0:
+                return 0
+
+            return (last_odom - first_odom) / (total_gallons - last_gallons)
+
+        return 0
+
 
 class GasPurchase(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -51,7 +67,7 @@ class GasPurchase(models.Model):
     cost_per_gallon = models.DecimalField(
         max_digits=6,
         decimal_places=3,
-        validators=[MinValueValidator(Decimal('0.01'))],
+        validators=[MinValueValidator(Decimal('0.00'))],
     )
     odometer_reading = models.IntegerField(
         validators=[MinValueValidator(0)],
@@ -66,7 +82,7 @@ class GasPurchase(models.Model):
         return self.cost_per_gallon * self.gallons
 
     @property
-    def average_mpg(self):
+    def tank_mpg(self):
         # Get all the gas purchases with an odometer reading more than the
         # reading at this purchase, allowing for finding the next reading
         # (the one that is immediately larger than the current purchase).
@@ -88,7 +104,7 @@ class GasPurchase(models.Model):
 
 class Maintenance(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    datetime = models.DateTimeField()
+    datetime = models.DateField()
     cost = models.DecimalField(
         max_digits=10,
         decimal_places=2,
