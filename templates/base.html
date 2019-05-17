@@ -7,6 +7,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}Gas Tracker{% endblock %}</title>
+
         <!-- Bootstrap -->
         <link rel="stylesheet"
             href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -19,6 +20,8 @@
             crossorigin="anonymous">
         <!-- Custom Style -->
         <link rel="stylesheet" href="{% static 'gas/main.css' %}">
+
+        <!-- Icons -->
         <link rel="apple-touch-icon" sizes="180x180" href="{% static 'gas/apple-touch-icon.png' %}">
         <link rel="icon" type="image/png" sizes="32x32" href="{% static 'gas/favicon-32x32.png' %}">
         <link rel="icon" type="image/png" sizes="16x16" href="{% static 'gas/favicon-16x16.png' %}">
@@ -34,17 +37,28 @@
             </div>
         </header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <div class="container collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item {% nav_active 'index' %}">
-                        <a class="nav-link" href="{% url 'index' %}">Home</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                    <li class="nav-item {% nav_active 'cars' %}">
-                        <a class="nav-link" href="{% url 'cars' %}">My Cars</a>
-                    </li>
-                    {% endif %}
-                </ul>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="container">
+                <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item {% nav_active 'index' %}">
+                            <a class="nav-link" href="{% url 'index' %}">Home</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item {% nav_active 'cars' %}">
+                            <a class="nav-link" href="{% url 'cars' %}">My Cars</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
                 <ul class="navbar-nav navbar-right">
                     {# It's rather senseless to add the active check to   #}
                     {# login and logout because they won't be seen in the #}
