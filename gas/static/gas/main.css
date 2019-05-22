@@ -1,3 +1,4 @@
+/* Padding */
 header {
     margin-top: 1em;
 }
@@ -8,6 +9,11 @@ h2 {
 
 h3 {
     margin-top: .5em;
+}
+
+/* Table format */
+.table th, .table td {
+    vertical-align: middle;
 }
 
 /* FOOTER STYLE */
