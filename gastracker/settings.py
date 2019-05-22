@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'gastracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'gas',
-        'USER': 'gas_user',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.environ.get('GAS_DB_NAME', 'gas'),
+        'USER': os.environ.get('GAS_DB_USER', 'gas_user'),
+        'PASSWORD': os.environ.get('GAS_DB_PASS', 'password'),
+        'HOST': os.environ.get('GAS_DB_HOST', 'localhost'),
+        'PORT': os.environ.get('GAS_DB_PORT', '5432'),
     },
 }
 
