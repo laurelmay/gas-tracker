@@ -160,6 +160,7 @@ class NewPurchaseView(LoginRequiredMixin, CreateView):
         user = self.request.user
         form = super(NewPurchaseView, self).get_form(*args, **kwargs)
         form.fields['vehicle'].queryset = Car.objects.filter(owner=user)
+        form.fields['datetime'].label = "Date & time"
         return form
 
     def get_success_url(self):
@@ -187,6 +188,11 @@ class GasPurchaseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
         'gallons',
         'cost_per_gallon',
     ]
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.fields['datetime'].label = "Date & time"
+        return form
 
     def get_object(self, queryset=None):
         return get_object_or_404(GasPurchase, uuid=self.kwargs.get("gas_id"))
@@ -247,6 +253,7 @@ class NewMaintenanceView(LoginRequiredMixin, CreateView):
     def get_form(self, *args, **kwargs):
         user = self.request.user
         form = super(NewMaintenanceView, self).get_form(*args, **kwargs)
+        form.fields['datetime'].label = "Date & time"
         form.fields['vehicle'].queryset = Car.objects.filter(owner=user)
         return form
 
@@ -274,6 +281,11 @@ class MaintenanceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView)
         'description',
         'cost',
     ]
+
+    def get_form(self, *args, **kwargs):
+        form = super().get_form(*args, **kwargs)
+        form.fields['datetime'].label = "Date & time"
+        return form
 
     def get_object(self, queryset=None):
         return get_object_or_404(Maintenance, uuid=self.kwargs.get("maint_id"))
