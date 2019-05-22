@@ -7,7 +7,7 @@
             Keep track of how often you purchase gas
         </p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="#" role="button">Get started</a>
+            <a class="btn btn-primary btn-lg" href="{% url 'cars' %}" role="button">Get started</a>
         </p>
     </div>
 </div>
@@ -34,10 +34,12 @@
             </p>
         </div>
         <div class="col-md-4">
-            <h2>Third column</h2>
+            <h2>Cars</h2>
             <p>
-                This is a third column that I'll get around to replacing at
-                some point.
+                Track commulative costs for cars and various other data.
+            </p>
+            <p>
+                <a class="btn btn-secondary" role="button" href="{% url 'add-car' %}">Add Car</a>
             </p>
         </div>
     </div>
