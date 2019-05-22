@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load bootstrap %}
+
+{% block title %}Delete Maintenance{% endblock %}
+{% block content %}
+<div class="container main-container">
+<h2>Delete Maintenance</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete this gas purchase?</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Odometer</th>
+                <th scope="col">Date</th>
+                <th scope="col">Description</th>
+                <th scope="col">Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td scope="row">{{ object.odometer_reading }}</td>
+                <td>{{ object.datetime|date }}</td>
+                <td>{{ object.description }}</td>
+                <td>${{ object.cost|floatformat:2 }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <input class="btn btn-danger" type="submit" value="Delete">
+</form>
+</div>
+{% endblock %}

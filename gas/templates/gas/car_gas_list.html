@@ -23,6 +23,7 @@
             <th scope="col">Cost/Gallon</th>
             <th scope="col">Total Cost</th>
             <th scope="col">Tank MPG</th>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +35,16 @@
             <td>${{ fill_up.cost_per_gallon|floatformat:2 }}</td>
             <td>${{ fill_up.total_cost|floatformat:2 }}</td>
             <td>{{ fill_up.tank_mpg|floatformat:3 }}</td>
+            <td>
+                <a title="Edit" class="btn btn-primary" href="{% url 'gas-purchase-update' fill_up.vehicle.uuid fill_up.uuid %}">
+                    <span aria-hidden="true" class="fas fa-edit" title="Edit"></span>
+                    <span class="sr-only">Edit</span>
+                </a>
+                <a title="Delete" class="btn btn-danger" href="{% url 'gas-purchase-delete' fill_up.vehicle.uuid fill_up.uuid %}">
+                    <span aria-hidden="true" class="fas fa-trash" title="Delete"></span>
+                    <span class="sr-only">Delete</span>
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

@@ -17,8 +17,18 @@
 <p>VIN: {{ object.vin }}</p>
 <p>Operating cost: ${{ object.operating_cost|floatformat:2 }}</p>
 <p>Average MPG: {{ object.average_mpg|floatformat:2 }}</p>
-<h3>Gas Purchases</h3>
+<p>
+    <a title="Edit" class="btn btn-primary" href="{% url 'car-update' object.uuid %}">
+        <span class="fas fa-edit" title="Edit" aria-hidden="true"></span>
+        <span class="sr-only">Edit</span>
+    </a>
+    <a title="Delete" class="btn btn-danger" href="{% url 'car-delete' object.uuid %}">
+        <span class="fas fa-trash" title="Delete" aria-hidden="true"></span>
+        <span class="sr-only">Delete</span>
+    </a>
+</p>
 
+<h3>Gas Purchases</h3>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -28,6 +38,7 @@
             <th scope="col">Cost/Gallon</th>
             <th scope="col">Total Cost</th>
             <th scope="col">Tank MPG</th>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -39,6 +50,16 @@
             <td>${{ fill_up.cost_per_gallon|floatformat:2 }}</td>
             <td>${{ fill_up.total_cost|floatformat:2 }}</td>
             <td>{{ fill_up.tank_mpg|floatformat:3 }}</td>
+            <td>
+                <a title="Edit" class="btn btn-primary" href="{% url 'gas-purchase-update' fill_up.vehicle.uuid fill_up.uuid %}">
+                    <span class="fas fa-edit" title="Edit" aria-hidden="true"></span>
+                    <span class="sr-only">Edit</span>
+                </a>
+                <a title="Delete" class="btn btn-danger" href="{% url 'gas-purchase-delete' fill_up.vehicle.uuid fill_up.uuid %}">
+                    <span class="fas fa-trash" title="Delete" aria-hidden="true"></span>
+                    <span class="sr-only">Delete</span>
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
@@ -57,6 +78,7 @@
             <th scope="col">Date</th>
             <th scope="col">Description</th>
             <th scope="col">Cost</th>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -66,6 +88,16 @@
             <td>{{ maint.datetime|date }}</td>
             <td>{{ maint.description }}</td>
             <td>${{ maint.cost|floatformat:2 }}</td>
+            <td>
+                <a title="Edit" class="btn btn-primary" href="{% url 'maintenance-update' maint.vehicle.uuid maint.uuid %}">
+                    <span class="fas fa-edit" title="Edit" aria-hidden="true"></span>
+                    <span class="sr-only">Edit</span>
+                </a>
+                <a title="Delete" class="btn btn-danger" href="{% url 'maintenance-delete' maint.vehicle.uuid maint.uuid %}">
+                    <span class="fas fa-trash" title="Delete" aria-hidden="true"></span>
+                    <span class="sr-only">Delete</span>
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

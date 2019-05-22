@@ -2,15 +2,15 @@
 {% load humanize %}
 {% load bootstrap %}
 
-{% block title %}Add Car{% endblock %}
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Car{% endblock %}
 
 {% block content %}
 <div class="container main-container">
-<h2>Add Car</h2>
-<form action="{% url 'add-car' %}" method="post">
-    {% csrf_token %}
-    {{ form|bootstrap }}
-    <input class="btn btn-primary" type="submit" value="Add">
-</form>
+    <h2>{% if object %}Edit{% else %}Add{% endif %} Car</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <input class="btn btn-primary" type="submit" value="Save">
+    </form>
 </div>
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load bootstrap %}
+
+{% block title %}Delete Car{% endblock %}
+{% block content %}
+<div class="container main-container">
+<h2>Delete Car</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to delete this Car?</p>
+    <p>{{ object.year }} {{ object.make }} {{object.model }}</p>
+    <p>VIN: {{ object.vin }}</p>
+    <input class="btn btn-danger" type="submit" value="Delete">
+</form>
+</div>
+{% endblock %}

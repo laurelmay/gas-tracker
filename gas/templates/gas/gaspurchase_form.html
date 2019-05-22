@@ -2,15 +2,15 @@
 {% load humanize %}
 {% load bootstrap %}
 
-{% block title %}Add Gas Purchase{% endblock %}
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Gas Purchase{% endblock %}
 
 {% block content %}
 <div class="container main-container">
-<h2>Add Gas Purchase</h2>
-<form action="{% url 'add-purchase' %}" method="post">
-    {% csrf_token %}
-    {{ form|bootstrap }}
-    <input class="btn btn-primary" type="submit" value="Add">
-</form>
+    <h2>{% if object %}Edit{% else %}Add{% endif %} Gas Purchase</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <input class="btn btn-primary" type="submit" value="Save">
+    </form>
 </div>
 {% endblock %}

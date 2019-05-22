@@ -21,15 +21,26 @@
             <th scope="col">Date</th>
             <th scope="col">Cost</th>
             <th scope="col">Description</th>
+            <td></td>
         </tr>
     </thead>
     <tbody>
-        {% for maintenance in object_list %}
+        {% for maint in object_list %}
         <tr>
-            <td scope="row">{{ maintenance.odometer_reading }}</td>
-            <td>{{ maintenance.datetime|date }}</td>
-            <td>${{ maintenance.cost|floatformat:2 }}</td>
-            <td>{{ maintenance.description }}</td>
+            <td scope="row">{{ maint.odometer_reading }}</td>
+            <td>{{ maint.datetime|date }}</td>
+            <td>${{ maint.cost|floatformat:2 }}</td>
+            <td>{{ maint.description }}</td>
+            <td>
+                <a title="Edit" class="btn btn-primary" href="{% url 'maintenance-update' maint.vehicle.uuid maint.uuid %}">
+                    <span aria-hidden="true" class="fas fa-edit" title="Edit"></span>
+                    <span class="sr-only">Edit</span>
+                </a>
+                <a title="Delete" class="btn btn-danger" href="{% url 'maintenance-delete' maint.vehicle.uuid maint.uuid %}">
+                    <span aria-hidden="true" class="fas fa-trash" title="Delete"></span>
+                    <span class="sr-only">Delete</span>
+                </a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
