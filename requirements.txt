@@ -1,5 +1,5 @@
-Django==2.2.8
-django-bootstrap-form==3.4
-psycopg2==2.8.2
-pytz==2019.1
-sqlparse==0.3.0
+Django
+django-bootstrap-form
+psycopg2-binary
+pytz
+sqlparse

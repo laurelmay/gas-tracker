@@ -1,5 +1,7 @@
 import datetime
 
+import pytz
+
 from django.http import HttpResponse
 from django.shortcuts import (
     redirect,
@@ -40,6 +42,14 @@ from .forms import (
 
 def index(request):
     return render(request, "gas/index.html")
+
+
+def set_timezone(request):
+    if request.method == 'POST':
+        request.session['django_timezone'] = request.POST['timezone']
+        return redirect('/')
+    else:
+        return render(request, 'gas/user_timezone.html', {'timezones': pytz.common_timezones})
 
 
 ## CAR ##

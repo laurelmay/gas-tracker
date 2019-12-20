@@ -17,4 +17,5 @@ urlpatterns = [
     path('add-purchase', views.NewPurchaseView.as_view(), name='add-purchase'),
     path('add-car', views.NewCarView.as_view(), name='add-car'),
     path('add-maintenance', views.NewMaintenanceView.as_view(), name='add-maintenance'),
+    path('set-timezone', views.set_timezone, name='set-timezone'),
 ]
