@@ -41,17 +41,17 @@ class Car(models.Model):
 
     @property
     def average_mpg(self):
-        gas_purchases = self.gaspurchase_set.all()
-        total_gallons = sum([purchase.gallons for purchase in gas_purchases])
+        gas_purchases = self.gaspurchase_set.order_by('odometer_reading').all()
         if gas_purchases:
-            last_odom = gas_purchases[0].odometer_reading
-            last_gallons = gas_purchases[0].gallons
-            first_odom = gas_purchases.last().odometer_reading
+            total_gallons = sum([purchase.gallons for purchase in gas_purchases])
+            first_odom = gas_purchases[0].odometer_reading
+            first_gallons = gas_purchases[0].gallons
+            last_odom = gas_purchases.last().odometer_reading
 
-            if total_gallons - last_gallons == 0:
+            if total_gallons - first_gallons == 0:
                 return 0
 
-            return (last_odom - first_odom) / (total_gallons - last_gallons)
+            return (last_odom - first_odom) / (total_gallons - first_gallons)
 
         return 0
 
@@ -62,12 +62,12 @@ class GasPurchase(models.Model):
     gallons = models.DecimalField(
         max_digits=6,
         decimal_places=3,
-        validators=[MinValueValidator(Decimal('0.01'))],
+        validators=[MinValueValidator(0)],
     )
     cost_per_gallon = models.DecimalField(
         max_digits=6,
         decimal_places=3,
-        validators=[MinValueValidator(Decimal('0.00'))],
+        validators=[MinValueValidator(0)],
     )
     odometer_reading = models.IntegerField(
         validators=[MinValueValidator(0)],
