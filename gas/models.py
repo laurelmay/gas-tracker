@@ -117,4 +117,4 @@ class Maintenance(models.Model):
     vehicle = models.ForeignKey(Car, on_delete=models.SET_NULL, null=True)
 
     class Meta:
-        ordering = ['odometer_reading']
+        ordering = ['-odometer_reading']
