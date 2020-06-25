@@ -16,6 +16,10 @@ h3 {
     vertical-align: middle;
 }
 
+.table [data-href] {
+    cursor: pointer;
+}
+
 /* FOOTER STYLE */
 html {
     position: relative;

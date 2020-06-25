@@ -14,6 +14,7 @@
 <div class="container main-container">
 <h2>{{car.year }} {{ car.make }} {{ car.model }} Gas Purchases</h2>
 <p><a class="btn btn-primary" href="{% url 'add-purchase' %}?uuid={{ car.uuid }}" role="button">Add Purchase</a></p>
+{% if object_list %}
 <table class="table table-striped">
     <thead>
         <tr>
@@ -49,6 +50,9 @@
         {% endfor %}
     </tbody>
 </table>
+{% else %}
+<p>No gas purchases have been entered for {{ car }}.</p>
+{% endif %}
 
 {% if is_paginated %}
 <ul class="pagination">
@@ -91,5 +95,5 @@
     {% endif %}
 </ul>
 {% endif %}
-
+</div>
 {% endblock %}

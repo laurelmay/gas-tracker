@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load bootstrap %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Toll{% endblock %}
+
+{% block content %}
+<div class="container main-container">
+    <h2>{% if object %}Edit{% else %}Add{% endif %} Toll</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <input class="btn btn-primary" type="submit" value="Save">
+    </form>
+</div>
+{% endblock %}

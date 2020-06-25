@@ -1,7 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import *
+from .models import (
+    Car,
+    GasPurchase,
+    Maintenance,
+    Toll,
+    User,
+)
 
 
 @admin.register(Car)
@@ -23,7 +29,7 @@ class CarAdmin(admin.ModelAdmin):
 class GasPurchaseAdmin(admin.ModelAdmin):
     list_display = (
         'uuid', 'datetime', 'gallons', 'cost_per_gallon', 'odometer_reading',
-        'total_cost', 'vehicle'
+        'total_cost', 'vehicle', 'owner'
     )
     list_display_links = (
         'uuid',
@@ -38,7 +44,7 @@ class GasPurchaseAdmin(admin.ModelAdmin):
 @admin.register(Maintenance)
 class MaintenanceAdmin(admin.ModelAdmin):
     list_display = (
-        'uuid', 'datetime', 'vehicle', 'odometer_reading', 'cost'
+        'uuid', 'datetime', 'vehicle', 'odometer_reading', 'cost', 'owner'
     )
     list_display_links = (
         'uuid',
@@ -49,5 +55,17 @@ class MaintenanceAdmin(admin.ModelAdmin):
 
     list_per_page = 25
 
+@admin.register(Toll)
+class TollAdmin(admin.ModelAdmin):
+    list_display = (
+        'uuid', 'datetime', 'vehicle', 'cost', 'owner'
+    )
+    list_display_links = (
+        'uuid',
+    )
+    search_fields = (
+        'uuid', 'vehicle'
+    )
+    list_per_page = 25
 
 admin.site.register(User, UserAdmin)

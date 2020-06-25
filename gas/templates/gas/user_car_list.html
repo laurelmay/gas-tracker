@@ -19,18 +19,18 @@
             <th scope="col">Model</th>
             <th scope="col">Year</th>
             <th scope="col">VIN</th>
-            <th scope="col">Operating Cost</th>
+            <th scope="col">TCO</th>
             <td></td>
         </tr>
     </thead>
     <tbody>
         {% for car in object_list %}
-        <tr>
+        <tr class="clickable-row" data-href="{% url 'car-detail' car.uuid %}">
             <td>{{ car.make }}</td>
             <td>{{ car.model }}</td>
             <td>{{ car.year }}</td>
             <td><a href="{% url 'car-detail' car.uuid %}">{{ car.vin }}</a></td>
-            <td>${{ car.operating_cost|floatformat:2 }}</td>
+            <td>${{ car.total_cost_ownership|floatformat:2 }}</td>
             <td>
                 <a title="Edit" class="btn btn-primary" href="{% url 'car-update' car.uuid %}">
                     <span class="fas fa-edit" title="Edit" aria-hidden="true"></span>

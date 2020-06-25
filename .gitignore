@@ -191,3 +191,8 @@ dmypy.json
 # Pyre type checker
 
 # End of https://www.gitignore.io/api/django,python
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml

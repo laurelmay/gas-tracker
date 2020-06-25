@@ -1,24 +1,23 @@
 {% extends "base.html" %}
 {% load humanize %}
 
-{% block title %}{{car.year }} {{ car.make }} {{ car.model }} Maintenances{% endblock %}
+{% block title %}{{car.year }} {{ car.make }} {{ car.model }} Tolls{% endblock %}
 
 {% block content %}
 <nav aria-label="breadcrumb">
     <ol class="container breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'cars' %}">My Cars</a></li>
         <li class="breadcrumb-item"><a href="{% url 'car-detail' car.uuid %}">Car Detail</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Maintenances</li>
+        <li class="breadcrumb-item active" aria-current="page">Tolls</li>
     </ol>
 </nav>
 <div class="container main-container">
-<h2>{{car.year }} {{ car.make }} {{ car.model }} Maintenances</h2>
-<p><a class="btn btn-primary" href="{% url 'add-maintenance' %}?uuid={{ car.uuid }}" role="button">Add Maintenance</a></p>
+<h2>{{car.year }} {{ car.make }} {{ car.model }} Tolls</h2>
+<p><a class="btn btn-primary" href="{% url 'add-toll' %}?uuid={{ car.uuid }}" role="button">Add Toll</a></p>
 {% if object_list %}
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">Odometer</th>
             <th scope="col">Date</th>
             <th scope="col">Cost</th>
             <th scope="col">Description</th>
@@ -26,18 +25,17 @@
         </tr>
     </thead>
     <tbody>
-        {% for maint in object_list %}
+        {% for toll in object_list %}
         <tr>
-            <td scope="row">{{ maint.odometer_reading }}</td>
-            <td>{{ maint.datetime|date }}</td>
-            <td>${{ maint.cost|floatformat:2 }}</td>
-            <td>{{ maint.description }}</td>
+            <td>{{ toll.datetime|date }}</td>
+            <td>${{ toll.cost|floatformat:2 }}</td>
+            <td>{{ toll.description }}</td>
             <td>
-                <a title="Edit" class="btn btn-primary" href="{% url 'maintenance-update' maint.vehicle.uuid maint.uuid %}">
+                <a title="Edit" class="btn btn-primary" href="{% url 'toll-update' toll.vehicle.uuid toll.uuid %}">
                     <span aria-hidden="true" class="fas fa-edit" title="Edit"></span>
                     <span class="sr-only">Edit</span>
                 </a>
-                <a title="Delete" class="btn btn-danger" href="{% url 'maintenance-delete' maint.vehicle.uuid maint.uuid %}">
+                <a title="Delete" class="btn btn-danger" href="{% url 'toll-delete' toll.vehicle.uuid toll.uuid %}">
                     <span aria-hidden="true" class="fas fa-trash" title="Delete"></span>
                     <span class="sr-only">Delete</span>
                 </a>
@@ -47,7 +45,7 @@
     </tbody>
 </table>
 {% else %}
-<p>No maintenances have been entered for {{ car }}.</p>
+<p>No tolls have been entered for {{ car }}.</p>
 {% endif %}
 
 {% if is_paginated %}

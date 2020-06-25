@@ -80,11 +80,11 @@ WSGI_APPLICATION = 'gastracker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('GAS_DB_NAME', 'gas'),
-        'USER': os.environ.get('GAS_DB_USER', 'gas_user'),
-        'PASSWORD': os.environ.get('GAS_DB_PASS', 'password'),
-        'HOST': os.environ.get('GAS_DB_HOST', 'localhost'),
-        'PORT': os.environ.get('GAS_DB_PORT', '5432'),
+        'NAME': os.environ.get('RDS_DB_NAME', 'gas'),
+        'USER': os.environ.get('RDS_USERNAME', 'gas_user'),
+        'PASSWORD': os.environ.get('RDS_PASSWORD', 'password'),
+        'HOST': os.environ.get('RDS_HOSTNAME', 'localhost'),
+        'PORT': os.environ.get('RDS_PORT', '5432'),
     },
 }
 
@@ -117,6 +117,7 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
+USE_THOUSAND_SEPARATOR = True
 USE_L10N = True
 
 USE_TZ = True

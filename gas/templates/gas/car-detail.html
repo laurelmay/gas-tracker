@@ -15,8 +15,10 @@
 <h2>{{object.year }} {{ object.make }} {{ object.model }}</h2>
 
 <p>VIN: {{ object.vin }}</p>
+<p>Total Cost of Ownership: ${{ object.total_cost_ownership|floatformat:2 }}</p>
 <p>Operating cost: ${{ object.operating_cost|floatformat:2 }}</p>
 <p>Average MPG: {{ object.average_mpg|floatformat:2 }}</p>
+<p>Cost per mile: ${{ object.cost_per_mile|floatformat:3 }}</p>
 <p>
     <a title="Edit" class="btn btn-primary" href="{% url 'car-update' object.uuid %}">
         <span class="fas fa-edit" title="Edit" aria-hidden="true"></span>
@@ -29,6 +31,7 @@
 </p>
 
 <h3>Gas Purchases</h3>
+{% if object.gaspurchase_set.all %}
 <table class="table table-striped">
     <thead>
         <tr>
@@ -64,13 +67,14 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 <p>
     <a class="btn btn-primary" href="{% url 'add-purchase' %}?uuid={{ object.uuid }}" role="button">Add Purchase</a>
     <a class="btn btn-secondary" href="{% url 'car-gas-purchases' object.uuid %}" role="button">All Purchases</a>
 </p>
 
 <h3>Maintenances</h3>
-
+{% if object.maintenance_set.all %}
 <table class="table table-striped">
     <thead>
         <tr>
@@ -102,9 +106,48 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 <p>
     <a class="btn btn-primary" href="{% url 'add-maintenance' %}?uuid={{ object.uuid }}" role="button">Add Maintenance</a>
     <a class="btn btn-secondary" href="{% url 'car-maintenances' object.uuid %}" role="button">All Maintenances</a>
+</p>
+
+<h3>Tolls</h3>
+
+{% if object.toll_set.all %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Datetime</th>
+            <th scope="col">Description</th>
+            <th scope="col">Cost</th>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for toll in object.toll_set.all|slice:":5" %}
+        <tr>
+            <td scope="row">{{ toll.datetime|date}}</td>
+            <td> {{ toll.description }}</td>
+            <td> {{ toll.cost }}</td>
+            <td>
+                <a title="Edit" class="btn btn-primary" href="{% url 'toll-update' toll.vehicle.uuid toll.uuid %}">
+                    <span class="fas fa-edit" title="Edit" aria-hidden="true"></span>
+                    <span class="sr-only">Edit</span>
+                </a>
+                <a title="Delete" class="btn btn-danger" href="{% url 'toll-delete' toll.vehicle.uuid toll.uuid %}">
+                    <span class="fas fa-trash" title="Delete" aria-hidden="true"></span>
+                    <span class="sr-only">Delete</span>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+<p>
+    <a class="btn btn-primary" href="{% url 'add-toll' %}?uuid={{ object.uuid }}" role="button">Add Toll</a>
+    <a class="btn btn-secondary" href="{% url 'car-tolls' object.uuid %}" role="button">All Tolls</a>
 </p>
 </div>
 {% endblock %}
